@@ -113,13 +113,30 @@ int main()
 
 void createStackFromLinkedList(LinkedList *ll, Stack *s)
 {
-    /* add your code here */
+    removeAllItemsFromStack(s);
+
+	for(ListNode *cur =ll->head;cur!=NULL;cur=cur->next){
+		push(s,cur->item);
+	}
+	
+
 }
 
 void removeEvenValues(Stack *s)
 {
-	/* add your code here */
+    if (!s) return;
+    Stack tmp = {0}; // odd만 잠시 보관할 임시 스택
+
+    while (!isEmptyStack(s)) {
+        int x = pop(s);
+        if (x % 2 != 0) push(&tmp, x); 
+    }
+
+    while (!isEmptyStack(&tmp)) {
+        push(s, pop(&tmp));
+    }
 }
+
 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -161,7 +178,6 @@ void removeAllItemsFromStack(Stack *s)
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
-
 
 void printList(LinkedList *ll){
 

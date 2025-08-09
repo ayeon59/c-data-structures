@@ -116,13 +116,26 @@ int main()
 
 void createQueueFromLinkedList(LinkedList *ll, Queue *q)
 {
-	/* add your code here */
+    // 큐를 깨끗하게 비운 뒤
+    removeAllItemsFromQueue(q);
+
+    // 원본 ll을 순회하며 값만 enqueue (deep copy)
+    for (ListNode *cur = ll->head; cur != NULL; cur = cur->next) {
+        enqueue(q, cur->item); // enqueue가 새 노드를 만들어 붙여줌
+    }
 }
 
 void removeOddValues(Queue *q)
 {
-	/* add your code here */
+    int n = q->ll.size; // 현재 큐 길이만큼만 한 바퀴
+    for (int i = 0; i < n; i++) {
+        int x = dequeue(q);
+        if ((x % 2 == 0)) {      // 짝수면 보존
+            enqueue(q, x);
+        }                         // 홀수면 버림
+    }
 }
+
 
 //////////////////////////////////////////////////////////////////////////////////
 
