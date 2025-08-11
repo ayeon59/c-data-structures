@@ -114,10 +114,17 @@ int main()
 //////////////////////////////////////////////////////////////////////////////////
 
 int identical(BTNode *tree1, BTNode *tree2)
-
 {
-   /* add your code here */
+    
+    if (tree1 == NULL && tree2 == NULL) return 1;
+    if (tree1 == NULL || tree2 == NULL) return 0;
+
+    
+    return (tree1->item == tree2->item)
+        && identical(tree1->left, tree2->left)
+        && identical(tree1->right, tree2->right);
 }
+
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -177,7 +184,7 @@ BTNode *createTree()
         {
             scanf("%c",&s);
         }
-
+        //즉, 그만하고 싶을때, 현재 리프노드 *2 만큼 이상한 값을 넣어주면 스택이 비어버려서 종료됌
         if(temp->right != NULL)
             push(&stk,temp->right);
         if(temp->left != NULL)
@@ -188,10 +195,12 @@ BTNode *createTree()
 
 void push( Stack *stk, BTNode *node){
     StackNode *temp;
-
+    //다음에 넣을 노드를 받을 변수
     temp = malloc(sizeof(StackNode));
     if(temp == NULL)
         return;
+    //node 인자로 하나의 노드가 들어옴
+    //현재 새로 만드는 스택노드
     temp->btnode = node;
     if(stk->top == NULL){
         stk->top = temp;

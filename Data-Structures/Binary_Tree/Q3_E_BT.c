@@ -98,10 +98,15 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
-int countOneChildNodes(BTNode *node)
+int countOneChildNodes(BTNode *node){
+    
 
-{
-    /* add your code here */
+    if (node == NULL) return 0;
+    int countL = countOneChildNodes(node->left);
+    int countR = countOneChildNodes(node->right);
+    int hasExactlyOne = (node->left == NULL) ^ (node->right == NULL);
+
+    return countL + countR + hasExactlyOne;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

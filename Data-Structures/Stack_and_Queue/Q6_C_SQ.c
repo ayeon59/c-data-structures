@@ -115,7 +115,7 @@ void removeUntil(Stack *s, int value)
     while (!isEmptyStack(s) && peek(s) != value) {
         pop(s);
     }
-    
+    // 여기서 peek(s) == value 이면 stop, 없으면 스택 비어있음
 }
 
 
