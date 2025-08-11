@@ -120,17 +120,17 @@ int balanced(char *expression)
         else if (c == ')' || c == ']' || c == '}') {
             if (isEmptyStack(&st)) {
                 removeAllItemsFromStack(&st);
-                return 1; // not balanced
+                return 1; 
             }
             int t = pop(&st);
             if ((c == ')' && t != '(') ||
                 (c == ']' && t != '[') ||
                 (c == '}' && t != '{')) {
                 removeAllItemsFromStack(&st);
-                return 1; // not balanced
+                return 1; 
             }
         }
-        // 다른 문자는 무시 (문제 정의가 괄호만이라면)
+
     }
 
     int res = isEmptyStack(&st) ? 0 : 1; // 0: balanced, 1: not balanced
