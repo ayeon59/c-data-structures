@@ -101,10 +101,44 @@ int main()
 
 /////////////////////////////////////////////////////////////////////////////////
 
+//짝지은 수가 연속적인 숫자인지 확인
+
 int isStackPairwiseConsecutive(Stack *s)
 {
-  /* add your code here */
+    if (!s) return ;
+    if (s->ll.size % 2 != 0) return ; // 홀수면 짝지을 필요 없음
+
+    Stack tmp;
+    tmp.ll.head = NULL;
+    tmp.ll.size = 0;
+    tmp.ll.tail = NULL;
+
+    int isEmptyResult = 1;
+
+    while (!isEmptyStack(s)) {
+        int a = pop(s);
+        if (isEmptyStack(s)) {   
+            isEmptyResult = 0;
+            push(&tmp, a);       
+            break;
+        }
+        int b = pop(s);
+
+        if (abs(a - b) != 1) isEmptyResult = 0;
+
+        // 복구를 위해 임시 스택에 보관 (a가 원래 top이었음)
+        push(&tmp, a);
+        push(&tmp, b);
+    }
+
+    // 원상복구: tmp -> s 로 되돌리면 원래 순서 그대로 복구됨
+    while (!isEmptyStack(&tmp)) {
+        push(s, pop(&tmp));
+    }
+
+    return isEmptyResult;
 }
+
 
 //////////////////////////////////////////////////////////////////////////////////
 

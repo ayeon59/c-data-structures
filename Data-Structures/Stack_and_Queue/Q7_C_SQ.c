@@ -104,7 +104,38 @@ int main()
 ////////////////////////////////////////////////////////////
 int balanced(char *expression)
 {
-/* add your code here */
+    if (!expression) return 1; // 잘못된 입력은 not balanced 취급
+
+    Stack st;
+    st.ll.head = NULL;
+    st.ll.size = 0;
+
+    for (char *p = expression; *p; ++p) {
+        char c = *p;
+        // 여는 괄호 push
+        if (c == '(' || c == '[' || c == '{') {
+            push(&st, (int)c);
+        }
+        // 닫는 괄호 검사
+        else if (c == ')' || c == ']' || c == '}') {
+            if (isEmptyStack(&st)) {
+                removeAllItemsFromStack(&st);
+                return 1; // not balanced
+            }
+            int t = pop(&st);
+            if ((c == ')' && t != '(') ||
+                (c == ']' && t != '[') ||
+                (c == '}' && t != '{')) {
+                removeAllItemsFromStack(&st);
+                return 1; // not balanced
+            }
+        }
+        // 다른 문자는 무시 (문제 정의가 괄호만이라면)
+    }
+
+    int res = isEmptyStack(&st) ? 0 : 1; // 0: balanced, 1: not balanced
+    removeAllItemsFromStack(&st);
+    return res;
 }
 
 ////////////////////////////////////////////////////////////
